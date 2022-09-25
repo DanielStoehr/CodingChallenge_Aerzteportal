@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, mixins
 from portal.models import Appointment, Doctor, Patient
-
+from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 from portal.serializers import (
     AppointmentSerializer,
     DoctorSerializer,
@@ -41,4 +42,9 @@ class AppointmentViewSet(
     viewsets.GenericViewSet,
 ):
     serializer_class = AppointmentSerializer
-    queryset = Appointment.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Appointment.objects.filter(
+            Q(patient__user=self.request.user) | Q(doctor__user=self.request.user)
+        )

@@ -21,7 +21,7 @@ from portal import views
 router = routers.DefaultRouter()
 router.register(r"doctors", views.DoctorViewSet)
 router.register(r"patients", views.PatientViewSet)
-router.register(r"appointments", views.AppointmentViewSet)
+router.register(r"appointments", views.AppointmentViewSet, basename="Appointment")
 
 urlpatterns = [
     path("api/", include(router.urls)),
