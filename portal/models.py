@@ -14,7 +14,7 @@ class Patient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-class Apointment(models.Model):
+class Appointment(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     date = models.DateField()
